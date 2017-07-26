@@ -1,0 +1,233 @@
+﻿$transblack: rgba(0, 0, 0, 0.4);
+$transblack2: rgba(0, 0, 0, 0.8);
+$background: rgba(50,50,50, 0.95);
+$fontSizeVeryBig: 27pt;
+$iconWidth: 60px;
+
+.img-description {
+    position: relative;
+    overflow: hidden;
+
+    &.loaded {
+        background-color: black;
+    }
+
+    .description {
+        position: absolute;
+        transform: translateY(100%);
+        transition: transform 0.25s;
+        bottom: 0;
+        background-color: $transblack2;
+        width: 100%;
+        text-align: center;
+        color: white;
+        padding: 5px;
+
+        &.static {
+            transition: none;
+            transform: translateY(0);
+        }
+    }
+
+    img {
+        opacity: 1;
+        transition: opacity 0.25s;
+    }
+
+    &:hover {
+        .description {
+            transform: translateY(0);
+        }
+
+        img {
+            opacity: 0.70;
+        }
+    }
+}
+
+.gallery {
+    width: 100%;
+    margin-bottom: 40px;
+
+    img {
+        width: 100%;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .galleryItem {
+        position: relative;
+        width: 25%;
+        float: left;
+        margin: 0;
+        padding: 5px;
+        outline: none;
+        border: none;
+
+        &:nth-child(4n + 1) {
+            clear: both;
+        }
+
+        @media (max-width:991px) {
+            &:nth-child(4n + 1) {
+                clear: none;
+            }
+
+            &:nth-child(3n + 1) {
+                clear: both;
+            }
+
+            width: 33.3333%;
+        }
+
+        @media (max-width:767px) {
+            &:nth-child(4n + 1) {
+                clear: none;
+            }
+
+            &:nth-child(3n + 1) {
+                clear: none;
+            }
+
+            &:nth-child(2n + 1) {
+                clear: none;
+            }
+
+            width: 50%;
+            padding: 3px;
+        }
+    }
+}
+
+[data-imageViewer] {
+    cursor: pointer;
+}
+
+.imageViewer {
+    display: none;
+    z-index: 1000000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: $background;
+
+    button {
+        outline: none;
+        border: none;
+    }
+
+    .imageViewer-wrapper {
+        width: 100%;
+        height: 100%;
+        border: none;
+        padding: 0;
+
+        .imageViewer-content {
+            width: 94%;
+            height: 94%;
+            transform: translate3d(3%,3%,0);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: 50%;
+
+            .container {
+                position: absolute;
+                padding: 0;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+
+                &.full {
+                    height: 100%;
+                }
+
+                @media (max-width: 767px) {
+                    width: 100%;
+                }
+            }
+        }
+
+        .imageViewer-close {
+            position: absolute;
+            width: $iconWidth;
+            height: $iconWidth;
+            font-size: $fontSizeVeryBig;
+            color: white;
+            background: $transblack;
+            top: 0;
+            right: 0;
+            text-align: center;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+
+        .imageViewer-prev, .imageViewer-next {
+            color: white;
+            width: $iconWidth;
+            height: 100%;
+            top: 0;
+            position: absolute;
+            cursor: pointer;
+
+            span {
+                position: absolute;
+                display: inline-block;
+                width: $iconWidth;
+                height: $iconWidth;
+                font-size: $fontSizeVeryBig;
+                background: $transblack;
+                left: initial;
+                right: initial;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            &:hover {
+                background: $transblack;
+                color: white;
+
+                span {
+                    background: transparent;
+                }
+            }
+        }
+
+        .imageViewer-previous {
+            left: 0;
+        }
+
+        .imageViewer-next {
+            right: 0;
+        }
+    }
+
+
+    .imageViewer-caption {
+        position: absolute;
+        bottom: 0;
+        padding: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+        width: 100%;
+        background: linear-gradient(180deg,transparent 0,rgba(0,0,0,.1) 20%, $transblack2);
+        pointer-events: none;
+
+        span {
+            display: block;
+            text-align: left;
+            width: 100%;
+            height: 30px;
+            padding: 10px;
+            padding-left: 5px;
+            color: white;
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+        }
+    }
+}

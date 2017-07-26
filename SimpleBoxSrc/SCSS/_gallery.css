@@ -1,0 +1,160 @@
+﻿.img-description {
+  position: relative;
+  overflow: hidden; }
+  .img-description.loaded {
+    background-color: black; }
+  .img-description .description {
+    position: absolute;
+    transform: translateY(100%);
+    transition: transform 0.25s;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 5px; }
+    .img-description .description.static {
+      transition: none;
+      transform: translateY(0); }
+  .img-description img {
+    opacity: 1;
+    transition: opacity 0.25s; }
+  .img-description:hover .description {
+    transform: translateY(0); }
+  .img-description:hover img {
+    opacity: 0.70; }
+
+.gallery {
+  width: 100%;
+  margin-bottom: 40px; }
+  .gallery img {
+    width: 100%;
+    -webkit-backface-visibility: hidden; }
+  .gallery .galleryItem {
+    position: relative;
+    width: 25%;
+    float: left;
+    margin: 0;
+    padding: 5px;
+    outline: none;
+    border: none; }
+    .gallery .galleryItem:nth-child(4n + 1) {
+      clear: both; }
+    @media (max-width: 991px) {
+      .gallery .galleryItem {
+        width: 33.3333%; }
+        .gallery .galleryItem:nth-child(4n + 1) {
+          clear: none; }
+        .gallery .galleryItem:nth-child(3n + 1) {
+          clear: both; } }
+    @media (max-width: 767px) {
+      .gallery .galleryItem {
+        width: 50%;
+        padding: 3px; }
+        .gallery .galleryItem:nth-child(4n + 1) {
+          clear: none; }
+        .gallery .galleryItem:nth-child(3n + 1) {
+          clear: none; }
+        .gallery .galleryItem:nth-child(2n + 1) {
+          clear: none; } }
+
+[data-imageViewer] {
+  cursor: pointer; }
+
+.imageViewer {
+  display: none;
+  z-index: 1000000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(50, 50, 50, 0.95); }
+  .imageViewer button {
+    outline: none;
+    border: none; }
+  .imageViewer .imageViewer-wrapper {
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding: 0; }
+    .imageViewer .imageViewer-wrapper .imageViewer-content {
+      width: 94%;
+      height: 94%;
+      transform: translate3d(3%, 3%, 0);
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: 50%; }
+      .imageViewer .imageViewer-wrapper .imageViewer-content .container {
+        position: absolute;
+        padding: 0;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); }
+        .imageViewer .imageViewer-wrapper .imageViewer-content .container.full {
+          height: 100%; }
+        @media (max-width: 767px) {
+          .imageViewer .imageViewer-wrapper .imageViewer-content .container {
+            width: 100%; } }
+    .imageViewer .imageViewer-wrapper .imageViewer-close {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      font-size: 27pt;
+      color: white;
+      background: rgba(0, 0, 0, 0.4);
+      top: 0;
+      right: 0;
+      text-align: center;
+      cursor: pointer; }
+      .imageViewer .imageViewer-wrapper .imageViewer-close:hover {
+        opacity: 0.7; }
+    .imageViewer .imageViewer-wrapper .imageViewer-prev, .imageViewer .imageViewer-wrapper .imageViewer-next {
+      color: white;
+      width: 60px;
+      height: 100%;
+      top: 0;
+      position: absolute;
+      cursor: pointer; }
+      .imageViewer .imageViewer-wrapper .imageViewer-prev span, .imageViewer .imageViewer-wrapper .imageViewer-next span {
+        position: absolute;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        font-size: 27pt;
+        background: rgba(0, 0, 0, 0.4);
+        left: initial;
+        right: initial;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+        cursor: pointer; }
+      .imageViewer .imageViewer-wrapper .imageViewer-prev:hover, .imageViewer .imageViewer-wrapper .imageViewer-next:hover {
+        background: rgba(0, 0, 0, 0.4);
+        color: white; }
+        .imageViewer .imageViewer-wrapper .imageViewer-prev:hover span, .imageViewer .imageViewer-wrapper .imageViewer-next:hover span {
+          background: transparent; }
+    .imageViewer .imageViewer-wrapper .imageViewer-previous {
+      left: 0; }
+    .imageViewer .imageViewer-wrapper .imageViewer-next {
+      right: 0; }
+  .imageViewer .imageViewer-caption {
+    position: absolute;
+    bottom: 0;
+    padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 100%;
+    background: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.8));
+    pointer-events: none; }
+    .imageViewer .imageViewer-caption span {
+      display: block;
+      text-align: left;
+      width: 100%;
+      height: 30px;
+      padding: 10px;
+      padding-left: 5px;
+      color: white;
+      border-top: 1px solid rgba(255, 255, 255, 0.4); }
+

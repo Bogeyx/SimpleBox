@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "SCSS/_gallery.css",
+    "inputFile": "SCSS/_gallery.scss"
+  },
+  {
+    "outputFile": "SCSS/_embedded.css",
+    "inputFile": "SCSS/_embedded.scss"
+  }
+]

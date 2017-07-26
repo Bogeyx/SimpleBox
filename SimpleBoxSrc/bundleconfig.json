@@ -1,0 +1,46 @@
+﻿[
+  {
+    "outputFileName": "../dist/simpleBox.min.css",
+    "inputFiles": [
+      "SCSS/_gallery.css",
+      "SCSS/_embedded.css"
+    ],
+    "minify": {
+      "enabled": true
+    }
+  },
+  {
+    "outputFileName": "../dist/simpleBox.css",
+    "inputFiles": [
+      "SCSS/_gallery.css",
+      "SCSS/_embedded.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "../dist/simpleBox.js",
+    "inputFiles": [
+      "Typescript/common.js",
+      "Typescript/embedded.js",
+      "Typescript/gallery.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "../dist/simpleBox.min.js",
+    "inputFiles": [
+      "Typescript/common.js",
+      "Typescript/embedded.js",
+      "Typescript/gallery.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  }
+]
