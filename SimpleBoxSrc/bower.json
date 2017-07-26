@@ -1,0 +1,26 @@
+{
+  "name": "SimpleBox",
+  "homepage": "https://github.com/Bogeyx/SimpleBox",
+  "authors": [
+    "Maximilian Taeuffenbach"
+  ],
+  "description": "Super lightweight Lightbox and Gallery without jquery",
+  "main": "",
+  "version": "1.0.0",
+  "keywords": [
+    "Lightbox",
+    "Gallery",
+    "lightweight",
+    "feather",
+    "no",
+    "Jquery"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -33,6 +33,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="bower.json" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.defaults" />
