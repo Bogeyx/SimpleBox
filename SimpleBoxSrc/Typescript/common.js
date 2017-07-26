@@ -14,13 +14,13 @@ function offset(obj) {
     return undefined;
 }
 // Json request
-function getJSON(path, success, error) {
+function makeRequest(type, path, success, error) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 if (success)
-                    success(JSON.parse(xhr.responseText));
+                    success(xhr.responseText);
             }
             else {
                 if (error)
@@ -28,7 +28,7 @@ function getJSON(path, success, error) {
             }
         }
     };
-    xhr.open("GET", path, true);
+    xhr.open(type, path, true);
     xhr.send();
 }
 ////#endregion Misc

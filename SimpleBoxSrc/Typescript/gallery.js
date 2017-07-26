@@ -58,6 +58,7 @@ var Gallery = (function () {
         container.classList.add("container");
         content.appendChild(container);
         this._content = container;
+        this._content.onclick = function () { return _this.close(); };
         wrapper.appendChild(content);
         if (this.items.length > 1) {
             var prev = document.createElement("span");
@@ -130,6 +131,7 @@ var Gallery = (function () {
             var player = document.createElement("div");
             player.classList.add("youtube-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             this.updateContainer(player);
             embedded.embedItem(player, "youtube");
         }
@@ -137,6 +139,7 @@ var Gallery = (function () {
             var player = document.createElement("div");
             player.classList.add("vimeo-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             this.updateContainer(player);
             embedded.embedItem(player, "vimeo");
         }
@@ -145,6 +148,7 @@ var Gallery = (function () {
             var thumb = el instanceof HTMLImageElement ? el.src : el.getAttribute("data-thumb");
             player.classList.add("iframe-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             player.setAttribute("data-thumb", thumb);
             this.updateContainer(player);
             embedded.embedItem(player, "iframe");

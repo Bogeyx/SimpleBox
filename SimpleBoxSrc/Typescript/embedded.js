@@ -26,10 +26,11 @@ var Embedded = (function () {
             var div_1 = document.createElement("div");
             div_1.setAttribute("data-id", el.dataset.id);
             var img_1 = document.createElement("img");
+            img_1.alt = el.title ? el.title : "YoutTube";
+            img_1.title = el.title ? el.title : "YoutTube";
             if (el.offsetWidth > 700) {
                 img_1.src = "https://i.ytimg.com/vi/ID/maxresdefault.jpg".replace("ID", el.dataset.id);
                 img_1.setAttribute("fallback", "https://i.ytimg.com/vi/ID/hqdefault.jpg".replace("ID", el.id));
-                img_1.alt = "YoutTube";
                 img_1.onload = function () {
                     if (img_1.naturalHeight === 90 && img_1.naturalWidth === 120 && img_1.src !== img_1.getAttribute("fallback")) {
                         img_1.src = null;
@@ -48,11 +49,14 @@ var Embedded = (function () {
             el.appendChild(div_1);
         }
         else if (type === "vimeo") {
-            getJSON('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, function (data) {
+            makeRequest("GET", 'https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, function (result) {
+                var data = JSON.parse(result);
                 var div, img, play;
                 div = document.createElement("div");
                 div.setAttribute("data-id", el.dataset.id);
                 img = document.createElement("img");
+                img.alt = el.title ? el.title : "Vimeo";
+                img.title = el.title ? el.title : "Vimeo";
                 img.src = data.thumbnail_url;
                 play = document.createElement("div");
                 play.classList.add("play");
@@ -67,6 +71,8 @@ var Embedded = (function () {
             div_2 = document.createElement("div");
             div_2.setAttribute("data-src", el.dataset.id);
             img = document.createElement("img");
+            img.alt = el.title ? el.title : "IFrame";
+            img.title = el.title ? el.title : "IFrame";
             img.src = el.dataset.thumb;
             play = document.createElement("div");
             play.classList.add("play");
@@ -85,7 +91,7 @@ var Embedded = (function () {
         iframe.setAttribute("allowfullscreen", "1");
         scope.parentNode.replaceChild(iframe, scope);
     };
-    // IFrame Code für allgemine IFrames
+    // IFrame Code für allgemeine IFrames
     Embedded.prototype.createIframe = function (scope) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("src", scope.dataset.src);

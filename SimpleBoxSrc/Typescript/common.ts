@@ -16,20 +16,20 @@ function offset(obj: HTMLElement): { x: number, y: number } {
 }
 
 // Json request
-function getJSON(path: string, success: (data: any) => void, error: (xhr: XMLHttpRequest) => void) {
+function makeRequest(type:string, path: string, success: (result: string) => void, error: (xhr: XMLHttpRequest) => void) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 if (success)
-                    success(JSON.parse(xhr.responseText));
+                    success(xhr.responseText);
             } else {
                 if (error)
                     error(xhr);
             }
         }
     };
-    xhr.open("GET", path, true);
+    xhr.open(type, path, true);
     xhr.send();
 }
 ////#endregion Misc

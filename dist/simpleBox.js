@@ -14,13 +14,13 @@ function offset(obj) {
     return undefined;
 }
 // Json request
-function getJSON(path, success, error) {
+function makeRequest(type, path, success, error) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 if (success)
-                    success(JSON.parse(xhr.responseText));
+                    success(xhr.responseText);
             }
             else {
                 if (error)
@@ -28,7 +28,7 @@ function getJSON(path, success, error) {
             }
         }
     };
-    xhr.open("GET", path, true);
+    xhr.open(type, path, true);
     xhr.send();
 }
 ////#endregion Misc
@@ -142,10 +142,11 @@ var Embedded = (function () {
             var div_1 = document.createElement("div");
             div_1.setAttribute("data-id", el.dataset.id);
             var img_1 = document.createElement("img");
+            img_1.alt = el.title ? el.title : "YoutTube";
+            img_1.title = el.title ? el.title : "YoutTube";
             if (el.offsetWidth > 700) {
                 img_1.src = "https://i.ytimg.com/vi/ID/maxresdefault.jpg".replace("ID", el.dataset.id);
                 img_1.setAttribute("fallback", "https://i.ytimg.com/vi/ID/hqdefault.jpg".replace("ID", el.id));
-                img_1.alt = "YoutTube";
                 img_1.onload = function () {
                     if (img_1.naturalHeight === 90 && img_1.naturalWidth === 120 && img_1.src !== img_1.getAttribute("fallback")) {
                         img_1.src = null;
@@ -164,11 +165,14 @@ var Embedded = (function () {
             el.appendChild(div_1);
         }
         else if (type === "vimeo") {
-            getJSON('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, function (data) {
+            makeRequest("GET", 'https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, function (result) {
+                var data = JSON.parse(result);
                 var div, img, play;
                 div = document.createElement("div");
                 div.setAttribute("data-id", el.dataset.id);
                 img = document.createElement("img");
+                img.alt = el.title ? el.title : "Vimeo";
+                img.title = el.title ? el.title : "Vimeo";
                 img.src = data.thumbnail_url;
                 play = document.createElement("div");
                 play.classList.add("play");
@@ -183,6 +187,8 @@ var Embedded = (function () {
             div_2 = document.createElement("div");
             div_2.setAttribute("data-src", el.dataset.id);
             img = document.createElement("img");
+            img.alt = el.title ? el.title : "IFrame";
+            img.title = el.title ? el.title : "IFrame";
             img.src = el.dataset.thumb;
             play = document.createElement("div");
             play.classList.add("play");
@@ -201,7 +207,7 @@ var Embedded = (function () {
         iframe.setAttribute("allowfullscreen", "1");
         scope.parentNode.replaceChild(iframe, scope);
     };
-    // IFrame Code für allgemine IFrames
+    // IFrame Code für allgemeine IFrames
     Embedded.prototype.createIframe = function (scope) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("src", scope.dataset.src);
@@ -276,6 +282,7 @@ var Gallery = (function () {
         container.classList.add("container");
         content.appendChild(container);
         this._content = container;
+        this._content.onclick = function () { return _this.close(); };
         wrapper.appendChild(content);
         if (this.items.length > 1) {
             var prev = document.createElement("span");
@@ -348,6 +355,7 @@ var Gallery = (function () {
             var player = document.createElement("div");
             player.classList.add("youtube-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             this.updateContainer(player);
             embedded.embedItem(player, "youtube");
         }
@@ -355,6 +363,7 @@ var Gallery = (function () {
             var player = document.createElement("div");
             player.classList.add("vimeo-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             this.updateContainer(player);
             embedded.embedItem(player, "vimeo");
         }
@@ -363,6 +372,7 @@ var Gallery = (function () {
             var thumb = el instanceof HTMLImageElement ? el.src : el.getAttribute("data-thumb");
             player.classList.add("iframe-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             player.setAttribute("data-thumb", thumb);
             this.updateContainer(player);
             embedded.embedItem(player, "iframe");

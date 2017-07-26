@@ -75,6 +75,7 @@ class Gallery {
         container.classList.add("container");
         content.appendChild(container);
         this._content = container;
+        this._content.onclick = () => this.close();
         wrapper.appendChild(content);
 
         if (this.items.length > 1) {
@@ -157,6 +158,7 @@ class Gallery {
             let player = document.createElement("div");
             player.classList.add("youtube-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
 
             this.updateContainer(player);
             embedded.embedItem(player, "youtube");
@@ -164,6 +166,7 @@ class Gallery {
             let player = document.createElement("div");
             player.classList.add("vimeo-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
 
             this.updateContainer(player);
             embedded.embedItem(player, "vimeo");
@@ -172,6 +175,7 @@ class Gallery {
             let thumb = el instanceof HTMLImageElement ? el.src : el.getAttribute("data-thumb");
             player.classList.add("iframe-player");
             player.setAttribute("data-id", link);
+            player.setAttribute("title", el.title);
             player.setAttribute("data-thumb", thumb);
 
             this.updateContainer(player);

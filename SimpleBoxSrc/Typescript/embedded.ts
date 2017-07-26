@@ -31,10 +31,11 @@ class Embedded {
             div.setAttribute("data-id", el.dataset.id);
 
             let img = document.createElement("img");
+            img.alt = el.title ? el.title : "YoutTube";
+            img.title = el.title ? el.title : "YoutTube";
             if (el.offsetWidth > 700) {
                 img.src = "https://i.ytimg.com/vi/ID/maxresdefault.jpg".replace("ID", el.dataset.id);
-                img.setAttribute("fallback", "https://i.ytimg.com/vi/ID/hqdefault.jpg".replace("ID", el.id));
-                img.alt = "YoutTube";
+                img.setAttribute("fallback", "https://i.ytimg.com/vi/ID/hqdefault.jpg".replace("ID", el.id));                
                 img.onload = () => {
                     if (img.naturalHeight === 90 && img.naturalWidth === 120 && img.src !== img.getAttribute("fallback")) {
                         img.src = null;
@@ -52,12 +53,15 @@ class Embedded {
             div.onclick = () => this.createVideo(true, div);
             el.appendChild(div);
         } else if (type === "vimeo") {
-            getJSON('https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, (data) => {
+            makeRequest("GET", 'https://vimeo.com/api/oembed.json?url=https%3A//vimeo.com/' + el.dataset.id, (result) => {
+                let data = JSON.parse(result);
                 let div, img, play;
                 div = document.createElement("div");
                 div.setAttribute("data-id", el.dataset.id);
 
                 img = document.createElement("img");
+                img.alt = el.title ? el.title : "Vimeo";
+                img.title = el.title ? el.title : "Vimeo";
                 img.src = data.thumbnail_url;
                 play = document.createElement("div");
                 play.classList.add("play");
@@ -73,6 +77,8 @@ class Embedded {
             div.setAttribute("data-src", el.dataset.id);
 
             img = document.createElement("img");
+            img.alt = el.title ? el.title : "IFrame";
+            img.title = el.title ? el.title : "IFrame";
             img.src = el.dataset.thumb;
             play = document.createElement("div");
             play.classList.add("play");
@@ -94,7 +100,7 @@ class Embedded {
         scope.parentNode.replaceChild(iframe, scope);
     }
 
-    // IFrame Code für allgemine IFrames
+    // IFrame Code für allgemeine IFrames
     private createIframe(scope) {
         let iframe = document.createElement("iframe");
         iframe.setAttribute("src", scope.dataset.src);
