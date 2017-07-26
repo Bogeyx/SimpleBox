@@ -66,10 +66,10 @@ function goTo(selector) {
 }
 // Erkennung, ob User selbst scrollt
 if (window.addEventListener) {
-    document.addEventListener('DOMMouseScroll', function () { return userScroll = true; }, false);
+    document.addEventListener('DOMMouseScroll', function () { return userScroll = true; }, { passive: true });
 }
 //for IE/OPERA etc
-document.addEventListener('mousewheel', function () { return userScroll = true; });
+document.addEventListener('mousewheel', function () { return userScroll = true; }, { passive: true });
 ////#endregion Scrolling
 ////#region CounterUp
 var counterUpStarted = false;
