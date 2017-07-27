@@ -39,7 +39,7 @@ function goTo(selector) {
     // Berechnung
     var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - 50, 0);
     var dist = target - window.scrollY;
-    var scrollStep = (dist / 20) * (target < window.scrollY ? -1 : 1);
+    var scrollStep = dist / 20;
     var lastPos = -1;
     var finished = false;
     // Manche Browser setzten kurz nach dem laden selbst die Pos,

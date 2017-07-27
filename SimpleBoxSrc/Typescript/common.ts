@@ -16,7 +16,7 @@ function offset(obj: HTMLElement): { x: number, y: number } {
 }
 
 // Json request
-function makeRequest(type:string, path: string, success: (result: string) => void, error: (xhr: XMLHttpRequest) => void) {
+function makeRequest(type: string, path: string, success: (result: string) => void, error: (xhr: XMLHttpRequest) => void) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -34,8 +34,6 @@ function makeRequest(type:string, path: string, success: (result: string) => voi
 }
 ////#endregion Misc
 
-
-
 ////#region Scrolling
 var userScroll = false;
 
@@ -43,8 +41,8 @@ function goTo(selector: string | number) {
     // Berechnung
     let target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - 50, 0);
     let dist = target - window.scrollY;
-    let scrollStep = (dist/20) * (target < window.scrollY ? -1 : 1);
-    let lastPos = -1;    
+    let scrollStep = dist / 20;
+    let lastPos = -1;
     let finished = false;
     // Manche Browser setzten kurz nach dem laden selbst die Pos,
     // daher die aktuelle Position zweimal überprüfen
@@ -73,14 +71,12 @@ function goTo(selector: string | number) {
 
 // Erkennung, ob User selbst scrollt
 if (window.addEventListener) {
-    document.addEventListener('DOMMouseScroll', () => userScroll = true, <any>{passive: true });
+    document.addEventListener('DOMMouseScroll', () => userScroll = true, <any>{ passive: true });
 }
 //for IE/OPERA etc
 document.addEventListener('mousewheel', () => userScroll = true, <any>{ passive: true });
 
 ////#endregion Scrolling
-
-
 
 ////#region CounterUp
 var counterUpStarted = false;
@@ -93,7 +89,7 @@ function counterUp() {
 
         // Wenn im Bild, dann anfangen zu zählen
         window.addEventListener('scroll', () => {
-            if (!counterUpStarted) {                
+            if (!counterUpStarted) {
                 if (window.scrollY + window.innerHeight > firstPos) {
                     counterUpStarted = true;
                     // Auf 0 setzten
@@ -121,7 +117,7 @@ function counterUp() {
                         if (finished) {
                             clearInterval(counterInterval);
                         }
-                    }, 1000/ 59.9)
+                    }, 1000 / 59.9)
                 }
             }
         });

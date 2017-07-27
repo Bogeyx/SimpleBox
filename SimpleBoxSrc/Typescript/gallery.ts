@@ -128,12 +128,12 @@ class Gallery {
         let el = this._currentItems[this._currentIndex];        
         let link = el.getAttribute("data-target");
         if (!link) {
-            let a = el as HTMLAnchorElement;
-            let img = el as HTMLImageElement;
-            if (a) {
-                link = a.href;
+            if (el instanceof HTMLAnchorElement) {
+                link = el.href;
+            } else if (el instanceof HTMLImageElement) {
+                link = el.src;
             } else {
-                link = img.src;
+                throw new Error("No data-target");
             }
         }
         let type = el.getAttribute("data-type");
