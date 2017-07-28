@@ -473,8 +473,10 @@ var Gallery = (function () {
     // Schließen geklickt
     Gallery.prototype.close = function (e) {
         if (e && this._dimension) {
-            var valH = e.movementX > (window.innerWidth / 4) && e.movementX < (window.innerWidth / 4) * 3;
-            var valV = e.movementY > (window.innerHeight / 4) && e.movementY < (window.innerHeight / 4) * 3;
+            var clickX = e.screenX ? e.screenX : e.x;
+            var clickY = e.screenY ? e.screenY : e.y;
+            var valH = clickX > (window.innerWidth / 4) && clickX < (window.innerWidth / 4) * 3;
+            var valV = clickY > (window.innerHeight / 4) && clickY < (window.innerHeight / 4) * 3;
             if (valH && valV) {
                 return;
             }

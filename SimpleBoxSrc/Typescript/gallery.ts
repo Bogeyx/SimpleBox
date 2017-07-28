@@ -286,8 +286,10 @@ class Gallery {
     // Schließen geklickt
     private close(e: MouseEvent) {
         if (e && this._dimension) {
-            let valH = e.movementX > (window.innerWidth / 4) && e.movementX < (window.innerWidth / 4) * 3;
-            let valV = e.movementY > (window.innerHeight / 4) && e.movementY < (window.innerHeight / 4) * 3;
+            let clickX = e.screenX ? e.screenX : e.x;
+            let clickY = e.screenY ? e.screenY : e.y;
+            let valH = clickX > (window.innerWidth / 4) && clickX < (window.innerWidth / 4) * 3;
+            let valV = clickY > (window.innerHeight / 4) && clickY < (window.innerHeight / 4) * 3;
             if (valH && valV) {
                 return;
             }
