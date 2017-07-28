@@ -282,14 +282,14 @@ var Gallery = (function () {
         wrapper.classList.add("imageViewer-wrapper");
         //wrapper.onclick = () => this.close();
         imageViewer.appendChild(wrapper);
-        var content = document.createElement("div");
-        content.classList.add("imageViewer-content");
+        var contentWrapper = document.createElement("div");
+        contentWrapper.classList.add("imageViewer-content");
         var container = document.createElement("div");
         container.classList.add("container");
-        content.appendChild(container);
+        contentWrapper.appendChild(container);
+        contentWrapper.onclick = function (e) { return _this.close(e); };
         this._content = container;
-        this._content.onclick = function () { return _this.close(); };
-        wrapper.appendChild(content);
+        wrapper.appendChild(contentWrapper);
         if (this.items.length > 1) {
             var prev = document.createElement("span");
             prev.classList.add("imageViewer-prev");
@@ -309,7 +309,7 @@ var Gallery = (function () {
         var close = document.createElement("span");
         close.innerText = "X";
         close.classList.add("imageViewer-close");
-        close.onclick = function () { return _this.close(); };
+        close.onclick = function () { return _this.close(null); };
         wrapper.appendChild(close);
         var caption = document.createElement("div");
         caption.classList.add("imageViewer-caption");
@@ -470,7 +470,14 @@ var Gallery = (function () {
         this.loadContent();
     };
     // Schließen geklickt
-    Gallery.prototype.close = function () {
+    Gallery.prototype.close = function (e) {
+        if (e && this._dimension) {
+            var valH = e.movementX > (window.innerWidth / 2) - (this._dimension.width / 2) || e.movementX < (window.innerWidth / 2) + (this._dimension.width / 2);
+            var valV = e.movementY > (window.innerHeight / 2) - (this._dimension.height / 2) || e.movementY < (window.innerHeight / 2) + (this._dimension.height / 2);
+            if (!(valH && valV)) {
+                return;
+            }
+        }
         if (this._originElement) {
             for (var i = 0; i < this._content.children[0].children.length; i++) {
                 this._originElement.appendChild(this._content.children[0].children[i]);

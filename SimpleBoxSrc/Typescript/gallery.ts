@@ -73,14 +73,14 @@ class Gallery {
         //wrapper.onclick = () => this.close();
         imageViewer.appendChild(wrapper);
 
-        let content = document.createElement("div");
-        content.classList.add("imageViewer-content");
+        let contentWrapper = document.createElement("div");
+        contentWrapper.classList.add("imageViewer-content");
         let container = document.createElement("div");
         container.classList.add("container");
-        content.appendChild(container);
+        contentWrapper.appendChild(container);
+        contentWrapper.onclick = (e) => this.close(e);
         this._content = container;
-        this._content.onclick = () => this.close();
-        wrapper.appendChild(content);
+        wrapper.appendChild(contentWrapper);
 
         if (this.items.length > 1) {
             let prev = document.createElement("span");
@@ -103,7 +103,7 @@ class Gallery {
         let close = document.createElement("span");
         close.innerText ="X";
         close.classList.add("imageViewer-close");
-        close.onclick = () => this.close();
+        close.onclick = () => this.close(null);
         wrapper.appendChild(close);
 
         let caption = document.createElement("div");
@@ -283,7 +283,16 @@ class Gallery {
     }
 
     // Schließen geklickt
-    private close() {
+    private close(e: MouseEvent) {
+        if (e && this._dimension) {
+            let valH = e.movementX > (window.innerWidth / 2) - (this._dimension.width / 2) || e.movementX < (window.innerWidth / 2) + (this._dimension.width / 2);
+            let valV = e.movementY > (window.innerHeight / 2) - (this._dimension.height / 2) || e.movementY < (window.innerHeight / 2) + (this._dimension.height / 2);
+            if (!(valH && valV)) {
+                return;
+            }
+        }
+
+
         if (this._originElement) {
             for (var i = 0; i < this._content.children[0].children.length; i++) {
                 this._originElement.appendChild(this._content.children[0].children[i]);
