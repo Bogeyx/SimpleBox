@@ -57,7 +57,7 @@ class Gallery {
         this.initMarkup();
         window.addEventListener("resize", () => {
             this.updateImageSize();
-        });
+        }, <any>{ passive: true });
     }
 
 
@@ -236,7 +236,7 @@ class Gallery {
     // Pass die Größe des Bildes an die momentane Auflösung an
     private updateImageSize() {
         if (this._dimension) {
-            if (this._dimension.width < this._content.parentElement.clientWidth || this._dimension.height < this._content.parentElement.clientHeight) {
+            if (this._dimension.width < this._content.parentElement.clientWidth && this._dimension.height < this._content.parentElement.clientHeight) {
                 this._content.parentElement.style.backgroundSize = this._dimension.width + "px " + this._dimension.height + "px";
             } else {
                 this._content.parentElement.style.backgroundSize = "contain";

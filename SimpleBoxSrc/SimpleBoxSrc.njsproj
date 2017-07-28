@@ -71,6 +71,12 @@
     <Compile Include="..\dist\simpleBox.min.js">
       <Link>simpleBox.min.js</Link>
     </Compile>
+    <Compile Include="..\dist\simpleBox.min.js">
+      <Link>simpleBox.min.js</Link>
+    </Compile>
+    <Compile Include="..\dist\simpleBox.min.js">
+      <Link>simpleBox.min.js</Link>
+    </Compile>
     <Compile Include="Typescript\common.js" />
     <Compile Include="Typescript\embedded.js" />
     <Compile Include="Typescript\gallery.js" />

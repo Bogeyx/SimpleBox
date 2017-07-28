@@ -269,7 +269,7 @@ var Gallery = (function () {
         this.initMarkup();
         window.addEventListener("resize", function () {
             _this.updateImageSize();
-        });
+        }, { passive: true });
     }
     // Initialisiert Markup
     Gallery.prototype.initMarkup = function () {
@@ -429,7 +429,7 @@ var Gallery = (function () {
     // Pass die Größe des Bildes an die momentane Auflösung an
     Gallery.prototype.updateImageSize = function () {
         if (this._dimension) {
-            if (this._dimension.width < this._content.parentElement.clientWidth || this._dimension.height < this._content.parentElement.clientHeight) {
+            if (this._dimension.width < this._content.parentElement.clientWidth && this._dimension.height < this._content.parentElement.clientHeight) {
                 this._content.parentElement.style.backgroundSize = this._dimension.width + "px " + this._dimension.height + "px";
             }
             else {
