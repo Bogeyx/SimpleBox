@@ -239,10 +239,10 @@ class Gallery {
             if (this._dimension.width < this._content.parentElement.clientWidth || this._dimension.height < this._content.parentElement.clientHeight) {
                 this._content.parentElement.style.backgroundSize = this._dimension.width + "px " + this._dimension.height + "px";
             } else {
-                this._content.parentElement.style.backgroundSize = "inherit";
+                this._content.parentElement.style.backgroundSize = "contain";
             }
         } else {
-            this._content.parentElement.style.backgroundSize = "inherit";
+            this._content.parentElement.style.backgroundSize = "contain";
         }
     }
 

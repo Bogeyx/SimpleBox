@@ -207,11 +207,11 @@ var Gallery = (function () {
                 this._content.parentElement.style.backgroundSize = this._dimension.width + "px " + this._dimension.height + "px";
             }
             else {
-                this._content.parentElement.style.backgroundSize = "inherit";
+                this._content.parentElement.style.backgroundSize = "contain";
             }
         }
         else {
-            this._content.parentElement.style.backgroundSize = "inherit";
+            this._content.parentElement.style.backgroundSize = "contain";
         }
     };
     // Setzt den neuen Content
