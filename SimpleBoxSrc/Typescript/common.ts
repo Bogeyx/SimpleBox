@@ -37,9 +37,9 @@ function makeRequest(type: string, path: string, success: (result: string) => vo
 ////#region Scrolling
 var userScroll = false;
 
-function goTo(selector: string | number) {
+function goTo(selector: string | number, yOffset: number = 50) {
     // Berechnung
-    let target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - 50, 0);
+    let target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - yOffset, 0);
     let dist = target - window.scrollY;
     let scrollStep = dist / 20;
     let lastPos = -1;
@@ -53,6 +53,7 @@ function goTo(selector: string | number) {
         if (finished || this.userScroll) {
             if (document.readyState === "complete" || this.userScroll) {
                 clearInterval(scrollInterval);
+                this.userScroll = false;
             }
 
             if (!this.userScroll) {

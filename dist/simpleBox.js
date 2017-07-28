@@ -34,10 +34,11 @@ function makeRequest(type, path, success, error) {
 ////#endregion Misc
 ////#region Scrolling
 var userScroll = false;
-function goTo(selector) {
+function goTo(selector, yOffset) {
     var _this = this;
+    if (yOffset === void 0) { yOffset = 50; }
     // Berechnung
-    var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - 50, 0);
+    var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - yOffset, 0);
     var dist = target - window.scrollY;
     var scrollStep = dist / 20;
     var lastPos = -1;
@@ -50,6 +51,7 @@ function goTo(selector) {
         if (finished || _this.userScroll) {
             if (document.readyState === "complete" || _this.userScroll) {
                 clearInterval(scrollInterval);
+                _this.userScroll = false;
             }
             if (!_this.userScroll) {
                 window.scrollTo(0, target);
@@ -251,6 +253,7 @@ Beispiele:
 var Gallery = (function () {
     // Initialisiert Markup und Events 
     function Gallery(elements) {
+        var _this = this;
         this.items = [];
         this._currentIndex = 0;
         var instance = this;
@@ -264,6 +267,9 @@ var Gallery = (function () {
             this.items.push(item);
         }
         this.initMarkup();
+        window.addEventListener("resize", function () {
+            _this.updateImageSize();
+        });
     }
     // Initialisiert Markup
     Gallery.prototype.initMarkup = function () {
@@ -322,6 +328,8 @@ var Gallery = (function () {
     };
     // Lädt den Content abhängig vom Typ
     Gallery.prototype.loadContent = function () {
+        var _this = this;
+        this._dimension = null;
         // Typ und Link ermitteln
         var el = this._currentItems[this._currentIndex];
         var link = el.getAttribute("data-target");
@@ -349,6 +357,14 @@ var Gallery = (function () {
         }
         // Anwenden
         if (type === "image") {
+            var tmpImage_1 = new Image();
+            tmpImage_1.src = link;
+            tmpImage_1.onload = function (e) {
+                _this._dimension = {};
+                _this._dimension.width = tmpImage_1.width;
+                _this._dimension.height = tmpImage_1.height;
+                _this.updateImageSize();
+            };
             this._content.parentElement.style.backgroundImage = "url(" + link + ")";
             this._content.innerHTML = "";
         }
@@ -408,6 +424,17 @@ var Gallery = (function () {
         }
         else {
             this._captionContent.innerText = "";
+        }
+    };
+    // Pass die Größe des Bildes an die momentane Auflösung an
+    Gallery.prototype.updateImageSize = function () {
+        if (this._dimension) {
+            var h = this._dimension.width > this._content.parentElement.clientWidth ? "auto" : this._dimension.width + "px";
+            var v = this._dimension.height > this._content.parentElement.clientHeight ? "auto" : this._dimension.height + "px";
+            this._content.parentElement.style.backgroundSize = h + " " + v;
+        }
+        else {
+            this._content.parentElement.style.backgroundSize = "auto";
         }
     };
     // Setzt den neuen Content

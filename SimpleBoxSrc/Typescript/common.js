@@ -34,10 +34,11 @@ function makeRequest(type, path, success, error) {
 ////#endregion Misc
 ////#region Scrolling
 var userScroll = false;
-function goTo(selector) {
+function goTo(selector, yOffset) {
     var _this = this;
+    if (yOffset === void 0) { yOffset = 50; }
     // Berechnung
-    var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - 50, 0);
+    var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - yOffset, 0);
     var dist = target - window.scrollY;
     var scrollStep = dist / 20;
     var lastPos = -1;
@@ -50,6 +51,7 @@ function goTo(selector) {
         if (finished || _this.userScroll) {
             if (document.readyState === "complete" || _this.userScroll) {
                 clearInterval(scrollInterval);
+                _this.userScroll = false;
             }
             if (!_this.userScroll) {
                 window.scrollTo(0, target);

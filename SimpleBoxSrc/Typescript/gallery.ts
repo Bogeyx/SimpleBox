@@ -31,7 +31,8 @@ class Gallery {
     private _currentItems: HTMLElement[];
     private _currentIndex = 0;
     // Falls type=ref, dann ist dies das Ursprungselement
-    private _originElement: HTMLElement
+    private _originElement: HTMLElement;
+    private _dimension: { width: number, height: number };
 
     // Elemente fürs Markup
     private _main: HTMLDivElement;
@@ -54,6 +55,9 @@ class Gallery {
         }
 
         this.initMarkup();
+        window.addEventListener("resize", () => {
+            this.updateImageSize();
+        });
     }
 
 
@@ -124,6 +128,8 @@ class Gallery {
 
     // Lädt den Content abhängig vom Typ
     private loadContent() {
+        this._dimension = null;
+
         // Typ und Link ermitteln
         let el = this._currentItems[this._currentIndex];        
         let link = el.getAttribute("data-target");
@@ -152,6 +158,16 @@ class Gallery {
 
         // Anwenden
         if (type === "image") {
+            let tmpImage = new Image();
+            tmpImage.src = link;
+
+            tmpImage.onload = (e) => {
+                this._dimension = {} as any;
+                this._dimension.width = tmpImage.width;
+                this._dimension.height = tmpImage.height;
+                this.updateImageSize();
+            };
+
             this._content.parentElement.style.backgroundImage = "url(" + link + ")";
             this._content.innerHTML = "";
         } else if (type === "youtube") {
@@ -214,6 +230,18 @@ class Gallery {
             this._captionContent.innerText = captionText;
         } else {
             this._captionContent.innerText = "";
+        }
+    }
+
+    // Pass die Größe des Bildes an die momentane Auflösung an
+    private updateImageSize() {
+        if (this._dimension) {
+            let h = this._dimension.width > this._content.parentElement.clientWidth ? "auto" : this._dimension.width + "px";
+            let v = this._dimension.height > this._content.parentElement.clientHeight ? "auto" : this._dimension.height + "px";
+
+            this._content.parentElement.style.backgroundSize = h + " " + v;
+        } else {
+            this._content.parentElement.style.backgroundSize = "auto";
         }
     }
 
