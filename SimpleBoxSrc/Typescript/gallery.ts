@@ -79,6 +79,7 @@ class Gallery {
         container.classList.add("container");
         contentWrapper.appendChild(container);
         contentWrapper.onclick = (e) => this.close(e);
+        container.onclick = (e) => e.stopPropagation();
         this._content = container;
         wrapper.appendChild(contentWrapper);
 
@@ -287,7 +288,7 @@ class Gallery {
         if (e && this._dimension) {
             let valH = e.movementX > (window.innerWidth / 2) - (this._dimension.width / 2) || e.movementX < (window.innerWidth / 2) + (this._dimension.width / 2);
             let valV = e.movementY > (window.innerHeight / 2) - (this._dimension.height / 2) || e.movementY < (window.innerHeight / 2) + (this._dimension.height / 2);
-            if (!(valH && valV)) {
+            if (valH && valV) {
                 return;
             }
         }

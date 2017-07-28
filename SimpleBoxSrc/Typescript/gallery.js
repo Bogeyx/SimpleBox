@@ -62,6 +62,7 @@ var Gallery = (function () {
         container.classList.add("container");
         contentWrapper.appendChild(container);
         contentWrapper.onclick = function (e) { return _this.close(e); };
+        container.onclick = function (e) { return e.stopPropagation(); };
         this._content = container;
         wrapper.appendChild(contentWrapper);
         if (this.items.length > 1) {
@@ -248,7 +249,7 @@ var Gallery = (function () {
         if (e && this._dimension) {
             var valH = e.movementX > (window.innerWidth / 2) - (this._dimension.width / 2) || e.movementX < (window.innerWidth / 2) + (this._dimension.width / 2);
             var valV = e.movementY > (window.innerHeight / 2) - (this._dimension.height / 2) || e.movementY < (window.innerHeight / 2) + (this._dimension.height / 2);
-            if (!(valH && valV)) {
+            if (valH && valV) {
                 return;
             }
         }
