@@ -429,12 +429,15 @@ var Gallery = (function () {
     // Pass die Größe des Bildes an die momentane Auflösung an
     Gallery.prototype.updateImageSize = function () {
         if (this._dimension) {
-            var h = this._dimension.width > this._content.parentElement.clientWidth ? "auto" : this._dimension.width + "px";
-            var v = this._dimension.height > this._content.parentElement.clientHeight ? "auto" : this._dimension.height + "px";
-            this._content.parentElement.style.backgroundSize = h + " " + v;
+            if (this._dimension.width < this._content.parentElement.clientWidth || this._dimension.height < this._content.parentElement.clientHeight) {
+                this._content.parentElement.style.backgroundSize = this._dimension.width + "px " + this._dimension.height + "px";
+            }
+            else {
+                this._content.parentElement.style.backgroundSize = "inherit";
+            }
         }
         else {
-            this._content.parentElement.style.backgroundSize = "auto";
+            this._content.parentElement.style.backgroundSize = "inherit";
         }
     };
     // Setzt den neuen Content
