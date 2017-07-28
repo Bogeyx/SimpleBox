@@ -5,8 +5,12 @@
     background-color: black; }
   .img-description .description {
     position: absolute;
+    -webkit-transform: translateY(100%);
     transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.25s;
+    transition: -webkit-transform 0.25s;
     transition: transform 0.25s;
+    transition: transform 0.25s, -webkit-transform 0.25s;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
@@ -14,12 +18,16 @@
     color: white;
     padding: 5px; }
     .img-description .description.static {
+      -webkit-transition: none;
       transition: none;
+      -webkit-transform: translateY(0);
       transform: translateY(0); }
   .img-description img {
     opacity: 1;
+    -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s; }
   .img-description:hover .description {
+    -webkit-transform: translateY(0);
     transform: translateY(0); }
   .img-description:hover img {
     opacity: 0.70; }
@@ -81,6 +89,7 @@
     .imageViewer .imageViewer-wrapper .imageViewer-content {
       width: 94%;
       height: 94%;
+      -webkit-transform: translate3d(3%, 3%, 0);
       transform: translate3d(3%, 3%, 0);
       background-repeat: no-repeat;
       background-size: contain;
@@ -90,6 +99,7 @@
         padding: 0;
         left: 50%;
         top: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%); }
         .imageViewer .imageViewer-wrapper .imageViewer-content .container.full {
           height: 100%; }
@@ -146,6 +156,7 @@
     padding-left: 40px;
     padding-right: 40px;
     width: 100%;
+    background: -webkit-linear-gradient(top, transparent 0, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.8));
     background: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 0.8));
     pointer-events: none; }
     .imageViewer .imageViewer-caption span {
@@ -189,6 +200,7 @@
     border: none;
     height: auto;
     cursor: pointer;
+    -webkit-transition: .4s all;
     transition: .4s all; }
   .youtube-player .play, .vimeo-player .play, .iframe-player .play {
     height: 66px;

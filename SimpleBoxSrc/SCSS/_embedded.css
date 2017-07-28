@@ -28,6 +28,7 @@
     border: none;
     height: auto;
     cursor: pointer;
+    -webkit-transition: .4s all;
     transition: .4s all; }
   .youtube-player .play, .vimeo-player .play, .iframe-player .play {
     height: 66px;

@@ -14,8 +14,12 @@ $iconWidth: 60px;
 
     .description {
         position: absolute;
+        -webkit-transform: translateY(100%);
         transform: translateY(100%);
+        -webkit-transition: -webkit-transform 0.25s;
+        transition: -webkit-transform 0.25s;
         transition: transform 0.25s;
+        transition: transform 0.25s, -webkit-transform 0.25s;
         bottom: 0;
         background-color: $transblack2;
         width: 100%;
@@ -24,18 +28,22 @@ $iconWidth: 60px;
         padding: 5px;
 
         &.static {
+            -webkit-transition: none;
             transition: none;
+            -webkit-transform: translateY(0);
             transform: translateY(0);
         }
     }
 
     img {
         opacity: 1;
+        -webkit-transition: opacity 0.25s;
         transition: opacity 0.25s;
     }
 
     &:hover {
         .description {
+            -webkit-transform: translateY(0);
             transform: translateY(0);
         }
 
@@ -126,6 +134,7 @@ $iconWidth: 60px;
         .imageViewer-content {
             width: 94%;
             height: 94%;
+            -webkit-transform: translate3d(3%,3%,0);
             transform: translate3d(3%,3%,0);
             background-repeat: no-repeat;
             background-size: contain;
@@ -136,6 +145,7 @@ $iconWidth: 60px;
                 padding: 0;
                 left: 50%;
                 top: 50%;
+                -webkit-transform: translate(-50%,-50%);
                 transform: translate(-50%,-50%);
 
                 &.full {
@@ -216,6 +226,7 @@ $iconWidth: 60px;
         padding-left: 40px;
         padding-right: 40px;
         width: 100%;
+        background: -webkit-linear-gradient(top,transparent 0,rgba(0,0,0,.1) 20%, $transblack2);
         background: linear-gradient(180deg,transparent 0,rgba(0,0,0,.1) 20%, $transblack2);
         pointer-events: none;
 

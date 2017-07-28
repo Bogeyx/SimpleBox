@@ -473,8 +473,8 @@ var Gallery = (function () {
     // Schließen geklickt
     Gallery.prototype.close = function (e) {
         if (e && this._dimension) {
-            var valH = e.movementX > (window.innerWidth / 2) - (this._dimension.width / 2) || e.movementX < (window.innerWidth / 2) + (this._dimension.width / 2);
-            var valV = e.movementY > (window.innerHeight / 2) - (this._dimension.height / 2) || e.movementY < (window.innerHeight / 2) + (this._dimension.height / 2);
+            var valH = e.movementX > (window.innerWidth / 4) && e.movementX < (window.innerWidth / 4) * 3;
+            var valV = e.movementY > (window.innerHeight / 4) && e.movementY < (window.innerHeight / 4) * 3;
             if (valH && valV) {
                 return;
             }
