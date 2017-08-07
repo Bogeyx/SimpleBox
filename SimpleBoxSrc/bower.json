@@ -6,7 +6,7 @@
   ],
   "description": "Super lightweight Lightbox and Gallery without jquery",
   "main": "",
-  "version": "1.1.0",
+  "version": "1.3.1",
   "keywords": [
     "Lightbox",
     "Gallery",
@@ -20,9 +20,9 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests",
     "SimpleBoxSrc",
-    "../SimpleBoxSrc"
+    "../SimpleBoxSrc",
+    "SimpleBoxSrc/.*",
+    "../SimpleBoxSrc/.*"
   ]
 }

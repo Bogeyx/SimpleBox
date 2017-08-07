@@ -18,7 +18,6 @@ interface NodeList {
     [index: number]: Node;
 }
 interface NodeListOf<TNode extends Node> extends NodeList {
-    length: number;
     item(index: number): TNode;
     forEach(callback: (index: number, value: TNode) => void, scope?): void;
     [index: number]: TNode;
