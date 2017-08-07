@@ -12,15 +12,10 @@ function forEach(callback: (index: number, value: Object) => void, scope?) {
 
 // Direkte ForEach Erweiterung für NodeList
 interface NodeList {
-    readonly length: number;
-    item(index: number): Node;
     forEach(callback: (index: number, value: Node) => void, scope?): void;
-    [index: number]: Node;
 }
-interface NodeListOf<TNode extends Node> extends NodeList {
-    item(index: number): TNode;
+interface NodeListOf<TNode extends Node> {
     forEach(callback: (index: number, value: TNode) => void, scope?): void;
-    [index: number]: TNode;
 }
 (<any>NodeList.prototype).forEach = forEach;
 
