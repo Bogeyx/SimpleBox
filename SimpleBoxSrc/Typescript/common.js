@@ -1,6 +1,15 @@
 ////#region Misc
 var sel = function (selector) { return document.querySelector(selector); };
 var selAll = function (selector) { return document.querySelectorAll(selector); };
+// Eine ForEach Erweiterung für alle Enumerables
+function forEach(callback, scope) {
+    var _this = this ? this : scope;
+    for (var i = 0; i < _this.length; i++) {
+        callback.call(scope, i, _this[i]); // passes back stuff we need
+    }
+}
+;
+NodeList.prototype.forEach = forEach;
 // Berechnet den offset zum Body
 function offset(obj) {
     var curleft = 0, curtop = 0;
@@ -38,26 +47,28 @@ function goTo(selector, yOffset) {
     var _this = this;
     if (yOffset === void 0) { yOffset = 50; }
     // Berechnung
+    var start = window.scrollY;
     var target = Math.max((typeof selector === "number" ? selector : offset(sel(selector)).y) - yOffset, 0);
-    var dist = target - window.scrollY;
+    var dist = target - start;
     var scrollStep = dist / 20;
     var lastPos = -1;
     var finished = false;
     // Manche Browser setzten kurz nach dem laden selbst die Pos,
     // daher die aktuelle Position zweimal überprüfen
     var twice = 0;
+    this.userScroll = false;
+    var bla = [];
     //Update bis Ziel, Seitenende oder User hat gescrollt
     var scrollInterval = setInterval(function () {
         if (finished || _this.userScroll) {
             if (document.readyState === "complete" || _this.userScroll) {
                 clearInterval(scrollInterval);
-                _this.userScroll = false;
             }
             if (!_this.userScroll) {
                 window.scrollTo(0, target);
             }
         }
-        else if (!(window.scrollY > target - scrollStep && window.scrollY < target + scrollStep) && (lastPos !== window.scrollY || twice++ < 1)) {
+        else if (!(target < start ? window.scrollY <= target : window.scrollY >= target) && (lastPos !== window.scrollY || twice++ < 1)) {
             lastPos = window.scrollY;
             window.scrollTo(0, window.scrollY + scrollStep);
         }
@@ -86,10 +97,10 @@ function counterUp() {
                 if (window.scrollY + window.innerHeight > firstPos_1) {
                     counterUpStarted = true;
                     // Auf 0 setzten
-                    for (var i = 0; i < items.length; i++) {
-                        var num = parseInt(items[i].innerText);
-                        items[i].innerText = items[i].innerText.replace(num.toString(), "0");
-                    }
+                    items.forEach(function (i, item) {
+                        var num = parseInt(item.innerText);
+                        item.innerText = item.innerText.replace(num.toString(), "0");
+                    });
                     // Schrittweise hoch zählen
                     var currentStep_1 = 0.01;
                     var counterInterval_1 = setInterval(function () {

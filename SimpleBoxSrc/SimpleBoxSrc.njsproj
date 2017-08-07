@@ -50,6 +50,7 @@
       <DependentUpon>SCSS\_gallery.css</DependentUpon>
     </Content>
     <Content Include="SCSS\_gallery.scss" />
+    <Content Include="Test.html" />
     <Content Include="tsconfig.json" />
     <Content Include="Typescript\common.js.map" />
     <Content Include="Typescript\embedded.js.map" />
