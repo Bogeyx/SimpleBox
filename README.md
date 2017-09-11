@@ -32,7 +32,7 @@ You can find it on Bower, too.
     </a>
 ```
 
-* Show iframe content without loading (default mode: just display any kind of target):
+* Show iframe content without loading (default mode if not image: just display/load any kind of target):
 ```
     <a data-imageViewer data-target="https://www.google.de/">
         <img src="~/thumb.png" />
@@ -47,4 +47,13 @@ You can find it on Bower, too.
     <div id="html" hidden>
         <span>Hello World!</span>
     </div>
+```
+
+* Grouping things (for example for galleries):
+```
+    <a data-imageViewer="group1" href="~/image1.png" title="Description 1">
+        <img src="~/thumb.png" />
+    </a>
+    <div data-imageViewer="group1" data-target="~/image2.png" title="Description 2" />
+    <div data-imageViewer="group1" data-target="k3tQaWxaLzM" data-type="youtube" title="Description 3" />
 ```
