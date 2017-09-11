@@ -54,6 +54,6 @@ You can find it on Bower, too.
     <a data-imageViewer="group1" href="~/image1.png" title="Description 1">
         <img src="~/thumb.png" />
     </a>
-    <div data-imageViewer="group1" data-target="~/image2.png" title="Description 2" />
-    <div data-imageViewer="group1" data-target="k3tQaWxaLzM" data-type="youtube" title="Description 3" />
+    <div data-imageViewer="group1" data-target="~/image2.png" title="Description 2" ></div>
+    <div data-imageViewer="group1" data-target="k3tQaWxaLzM" data-type="youtube" title="Description 3" ></div>
 ```
