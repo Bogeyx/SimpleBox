@@ -1,4 +1,6 @@
 # SimpleBox
+A more or less personal project but you can use it if you like it.
+You can find it on Bower, too.
 
 ## Live Example: http://lumion3d.de/galerie
 
